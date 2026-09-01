@@ -1,0 +1,18 @@
+# Xcode / XcodeGen
+ios/Tailswipe/*.xcodeproj/
+ios/Tailswipe/.build/
+ios/Tailswipe/DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Node
+backend/node_modules/
+backend/npm-debug.log*
+backend/.env
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

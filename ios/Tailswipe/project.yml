@@ -1,0 +1,69 @@
+name: Tailswipe
+options:
+  bundleIdPrefix: org.tailswipe
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  SWIFT_VERSION: "5.0"
+
+targets:
+  Tailswipe:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/Tailswipe
+    resources:
+      - path: Sources/Tailswipe/Resources/Assets.xcassets
+    info:
+      path: Sources/Tailswipe/Resources/Info.plist
+      properties:
+        UILaunchScreen: {}
+        NSLocationWhenInUseUsageDescription: "Tailswipe uses your location to show adoptable pets near you and let you set a search radius."
+        NSPhotoLibraryUsageDescription: "Tailswipe needs photo access so you can add photos when listing a pet for adoption."
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    # Push Notifications capability is commented out — Apple does not allow it on a free
+    # "Personal Team" account at all (confirmed by a real build attempt: "Personal
+    # development teams... do not support the Push Notifications capability"). This isn't
+    # a signing-config issue; it requires enrolling in the paid Apple Developer Program
+    # ($99/yr) at developer.apple.com/programs/enroll. Once enrolled and that team is
+    # selected in Xcode, uncomment this block, add UIBackgroundModes: [remote-notification]
+    # back above, and rebuild.
+    # entitlements:
+    #   path: Sources/Tailswipe/Resources/Tailswipe.entitlements
+    #   properties:
+    #     aps-environment: development
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.tailswipe.app
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: H694YUKKF5
+
+  TailswipeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests/TailswipeTests
+    dependencies:
+      - target: Tailswipe
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.tailswipe.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  Tailswipe:
+    build:
+      targets:
+        Tailswipe: all
+        TailswipeTests: [test]
+    test:
+      targets:
+        - TailswipeTests
+    run:
+      config: Debug
